@@ -1,0 +1,90 @@
+*********************************************************************************************************READ ME*************************************************************************************************************************
+
+
+This script extracts text from a specified PDF file and prints it to the console.
+To use the script, replace 'path_to_your_pdf_file.pdf' with the path to your PDF file.
+The script uses PyPDF2 to handle PDF files and extract text.
+
+
+Step 1: Install PyCharm
+Since you already have PyCharm installed, we can skip this step. If not, download and install PyCharm from the JetBrains website.
+
+
+Step 2: Create a New Python Project in PyCharm
+Open PyCharm.
+Click on File > New Project.
+Choose a location and name for your project.
+Select the Python interpreter you want to use. You can use an existing interpreter or let PyCharm set up a new virtual environment for you.
+Click Create.
+
+
+Step 3: Install PyPDF2
+You need to install the PyPDF2 library to handle PDF files:
+Open your newly created project in PyCharm.
+Go to File > Settings > Project: [your project name] > Python Interpreter.
+Click on the + sign at the bottom left to open the "Available Packages" dialog.
+Search for PyPDF2, select it, and click Install Package.
+Wait for the installation to complete and close the dialog.
+
+
+Step 4: Write Python Code to Extract Text from PDF
+Now you can write the Python code to extract text from a PDF file:
+
+In PyCharm, right-click on the project name in the project explorer.
+Select New > Python File and name it, e.g., extract_text.
+Enter the following Python code in the new file:
+python
+
+Copy code
+
+import PyPDF2
+
+def extract_text_from_pdf(pdf_path):
+    # Open the PDF file in binary read mode
+    with open(pdf_path, "rb") as file:
+        # Create a PDF reader object
+        reader = PyPDF2.PdfReader(file)
+        # Get the total number of pages in the PDF
+        num_pages = len(reader.pages)
+        # Initialize a list to hold all extracted text
+        all_text = []
+        # Iterate through each page in the PDF
+        for page_num in range(num_pages):
+            page = reader.pages[page_num]
+            # Extract text from the current page and append to the list
+            all_text.append(page.extract_text())
+        # Join all extracted text into a single string
+        return "\n".join(all_text)
+
+# Main execution block
+if __name__ == "__main__":
+    # Specify the path to the PDF file
+    pdf_file_path = 'path_to_your_pdf_file.pdf'
+    # Call the function to extract text and store the result
+    text = extract_text_from_pdf(pdf_file_path)
+    # Print the extracted text to the console
+    print(text)
+
+
+4.1 Replace 'path_to_your_pdf_file.pdf' with the actual path to the PDF file from which you want to extract text.
+
+
+Step 5: Run Your Python Script
+Right-click on the extract_text.py file in the PyCharm project explorer.
+Click Run 'extract_text'.
+This will execute your script, and you should see the extracted text from the PDF printed in the console output in PyCharm.
+
+Step 6: Save the Extracted Text to a Text File
+If you want to save the output to a text file, modify your script like this:
+
+python
+Copy code
+if __name__ == "__main__":
+    pdf_file_path = 'path_to_your_pdf_file.pdf'
+    output_file_path = 'output_text_file.txt'
+    text = extract_text_from_pdf(pdf_file_path)
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        file.write(text)
+    print("Text has been extracted and saved to:", output_file_path)
+
+5.1 Now, when you run your script, it will also save the extracted text to output_text_file.txt.
